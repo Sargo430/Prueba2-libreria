@@ -19,6 +19,8 @@ public class LibreriaPrueba {
         lib.imprimirPorConsola(lib.buscarPorCriterio(7, "pdf"));
 //        lib.eliminarPorCriterio(7, "PDF");
 //        lib.imprimirLista();
+        lib.modificarLibro("tuve fe", "en el aire", 1);
+        lib.imprimirPorConsola(lib.buscarPorCriterio(7, "pdf"));
         
     }
     public void anadirLibros(int tipo){
@@ -52,7 +54,7 @@ public class LibreriaPrueba {
                         nLineas++;
                     }
                     Scanner leer = new Scanner(new File(ruta));
-                    for(Integer i:lineas){
+                    for(Integer i:lineas){//elimina el formato del txt
                         leer.nextLine();
                         if(i==6){
                             String linea = leer.nextLine();
@@ -88,9 +90,10 @@ public class LibreriaPrueba {
                             String tamanio= linea.substring(20,linea.length());
                             LibroDigital libro = new LibroDigital(autor,titulo,anio,editorial,genero,nPag,formato,tamanio);
                             lb.add(libro);
-                        }
+                        }          
                     }
-
+                    contador.close();
+                    leer.close();
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(LibreriaPrueba.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -210,6 +213,47 @@ public class LibreriaPrueba {
             int a=i;
             lista_de_libros.remove(a);
         }
+    }
+    public void modificarLibro(String titulo,String nuevoDato,int tipoDato){// se busca por el titulo por que es unico en cada libro
+        ArrayList<Integer>i=buscarPorCriterio(1,titulo);
+        int indice=i.get(0);
+        switch(tipoDato){
+            case 1: //cambiar titulo
+                lista_de_libros.get(indice).titulo=nuevoDato;
+                
+                break;
+             case 2: //cambiar autor
+                lista_de_libros.get(indice).autor=nuevoDato;
+                break;
+             case 3: //cambiar año de publicacion
+                lista_de_libros.get(indice).anio=nuevoDato;
+                break;
+             case 4: //cambiar genero
+                lista_de_libros.get(indice).genero=nuevoDato;
+                break;
+            case 5: //cambiar paginas
+                lista_de_libros.get(indice).nPag=nuevoDato;
+                break;
+            case 6: //cambiar editorial
+                lista_de_libros.get(indice).editorial=nuevoDato;
+                break;
+            case 7: //cambiar formato
+                if(lista_de_libros.get(indice) instanceof LibroDigital aux){
+                    aux.setFormato(nuevoDato);
+                    lista_de_libros.set(indice,aux);
+                }
+                break;
+
+            case 8: //cambiar tamaño
+                if(lista_de_libros.get(indice) instanceof LibroDigital aux){
+                    aux.tamanio=nuevoDato;
+                    lista_de_libros.set(indice,aux);
+                }
+                break;
+
+        }
+        
+        
     }
     
 }
