@@ -170,7 +170,7 @@ public class Biblioteca {
                 for(Libro i:lista_de_libros){
                     if(i instanceof LibroDigital){
                         LibroDigital aux=(LibroDigital)i;
-                        if(aux.formato.equalsIgnoreCase(criterio)){
+                        if(aux.getFormato().equalsIgnoreCase(criterio)){
                             indices.add(lista_de_libros.indexOf(i));
                         }
                     } 
@@ -180,7 +180,7 @@ public class Biblioteca {
                 for(Libro i:lista_de_libros){
                     if(i instanceof LibroDigital){
                         LibroDigital aux=(LibroDigital)i;
-                        if(aux.tamanio.equalsIgnoreCase(criterio)){
+                        if(aux.getTamanio().equalsIgnoreCase(criterio)){
                             indices.add(lista_de_libros.indexOf(i));
                         }
                     } 
@@ -196,7 +196,7 @@ public class Biblioteca {
         }
         System.out.println("//////////////////////////////////////////");
     }
-    public void eliminarPorCriterio(int tipoCriterio, String criterio){
+    public void eliminarLibro(int tipoCriterio, String criterio){
         ArrayList<Integer> index = new ArrayList<Integer>();
         index=buscarPorCriterio(tipoCriterio,criterio);
         Collections.sort(index,Collections.reverseOrder());
@@ -204,6 +204,11 @@ public class Biblioteca {
             int a=i;
             lista_de_libros.remove(a);
         }
+    }
+    public void eliminarLibro(String titulo){//se elimina un solo libro utilizando el titulo
+        ArrayList<Integer> index = new ArrayList<Integer>();
+        index=buscarPorCriterio(1,titulo);
+        lista_de_libros.remove(index);
     }
     public void modificarLibro(String titulo,String nuevoDato,int tipoDato){ // se busca por el titulo por que es unico en cada libro
         ArrayList<Integer>i= buscarPorCriterio(1,titulo);
@@ -237,7 +242,7 @@ public class Biblioteca {
             case 8:
                 if(lista_de_libros.get(indice) instanceof LibroDigital){
                     LibroDigital aux = (LibroDigital) lista_de_libros.get(indice);
-                    aux.tamanio=nuevoDato;
+                    aux.setTamanio(nuevoDato);
                     lista_de_libros.set(indice, aux);
                 }
                 break;
