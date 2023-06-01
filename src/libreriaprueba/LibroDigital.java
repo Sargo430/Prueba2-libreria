@@ -19,5 +19,8 @@ public class LibroDigital extends Libro {
                 "Formato: " +formato + "\n"+
                 "Tamaño del archivo: " + tamanio + "\n";
     }
+    public void setFormato(String nuevoF){
+        this.formato=nuevoF;
+    }
     
 }
